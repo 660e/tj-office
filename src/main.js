@@ -6,7 +6,14 @@ import store from './store';
 
 const app = createApp(App);
 
+// vant
+import Vant from 'vant';
+import 'vant/lib/index.css';
+app.use(Vant);
+
 // global
 import './styles/index.less';
 
-app.use(store).use(router).mount('#app');
+app.use(router).use(store).mount('#app');
+
+document.documentElement.style.fontSize = document.documentElement.clientWidth / 3.75 + 'px';
