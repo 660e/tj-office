@@ -15,5 +15,3 @@ app.use(Vant);
 import './styles/index.less';
 
 app.use(router).use(store).mount('#app');
-
-document.documentElement.style.fontSize = document.documentElement.clientWidth / 3.75 + 'px';
