@@ -5,19 +5,22 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 const routes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/home'
   },
   {
     path: '/login',
     name: 'login',
     component: () => import('@/views/login')
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import('@/views/home')
   }
 ];
 
-const router = createRouter({
+export default createRouter({
   history: createWebHashHistory(),
   routes,
   scrollBehavior: () => ({ x: 0, y: 0 })
 });
-
-export default router;
