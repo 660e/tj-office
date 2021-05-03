@@ -1,9 +1,9 @@
 <template>
   <div>
-    <van-swipe :autoplay="5000">
-      <van-swipe-item><img src="../../assets/20191115182445095.jpg" alt="" /></van-swipe-item>
-      <van-swipe-item><img src="../../assets/20191115182536775.jpg" alt="" /></van-swipe-item>
-      <van-swipe-item><img src="../../assets/20191115182553688.jpg" alt="" /></van-swipe-item>
+    <van-swipe :autoplay="5000" :height="160">
+      <van-swipe-item><img src="../../assets/20191115182445095.jpg" /></van-swipe-item>
+      <van-swipe-item><img src="../../assets/20191115182536775.jpg" /></van-swipe-item>
+      <van-swipe-item><img src="../../assets/20191115182553688.jpg" /></van-swipe-item>
     </van-swipe>
     <van-cell title="公告信息"></van-cell>
     <van-list>

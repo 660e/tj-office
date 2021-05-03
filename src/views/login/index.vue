@@ -1,7 +1,7 @@
 <template>
   <div class="layout-container">
     <div class="c">
-      <h1>智慧工位</h1>
+      <h1><img src="../../assets/logo.png" />智慧工位</h1>
       <van-divider>v{{ version }}</van-divider>
       <div class="i" :class="{ disabled: loading }">
         <van-icon name="user-o" />
