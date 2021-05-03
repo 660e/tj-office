@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-
-// import Layout from '@/layout';
+import Layout from '@/layout';
 
 const routes = [
   {
@@ -13,9 +12,33 @@ const routes = [
     component: () => import('@/views/login')
   },
   {
-    path: '/home',
-    name: 'home',
-    component: () => import('@/views/home')
+    component: Layout,
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        meta: {
+          title: '首页'
+        },
+        component: () => import('@/views/home')
+      },
+      {
+        path: '/apps',
+        name: 'apps',
+        meta: {
+          title: '办公'
+        },
+        component: () => import('@/views/apps')
+      },
+      {
+        path: '/user',
+        name: 'user',
+        meta: {
+          title: '我的'
+        },
+        component: () => import('@/views/user')
+      }
+    ]
   }
 ];
 

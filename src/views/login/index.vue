@@ -1,5 +1,5 @@
 <template>
-  <div class="w">
+  <div class="layout-container">
     <div class="c">
       <h1>智慧工位</h1>
       <van-divider>v{{ version }}</van-divider>
