@@ -1,10 +1,7 @@
 <template>
-  <div class="layout-container">
-    <van-nav-bar :title="$route.meta.title" @click-left="onClickLeft" left-text="返回" left-arrow></van-nav-bar>
-    <div class="qrcode">
-      <canvas id="code"></canvas>
-      <span>30分钟内有效</span>
-    </div>
+  <div class="qrcode">
+    <canvas id="code"></canvas>
+    <span>30分钟内有效</span>
   </div>
 </template>
 
@@ -14,11 +11,6 @@ import QRCode from 'qrcode';
 export default {
   mounted() {
     getInviteCode().then(response => QRCode.toCanvas(document.getElementById('code'), response));
-  },
-  methods: {
-    onClickLeft() {
-      this.$router.back();
-    }
   }
 };
 </script>

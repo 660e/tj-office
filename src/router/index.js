@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import Layout from '@/layout';
+import Details from '@/layout/details.vue';
 
 const routes = [
   {
@@ -41,12 +42,25 @@ const routes = [
     ]
   },
   {
-    path: '/apps/invite',
-    name: 'invite',
-    meta: {
-      title: '邀请码'
-    },
-    component: () => import('@/views/apps/views/invite.vue')
+    component: Details,
+    children: [
+      {
+        path: '/apps/invite',
+        name: 'invite',
+        meta: {
+          title: '邀请码'
+        },
+        component: () => import('@/views/apps/views/invite.vue')
+      },
+      {
+        path: '/user/password',
+        name: 'password',
+        meta: {
+          title: '修改密码'
+        },
+        component: () => import('@/views/user/views/password.vue')
+      }
+    ]
   }
 ];
 

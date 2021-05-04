@@ -4,7 +4,7 @@
       <img src="../../assets/default.png" />
       <span>Lorem, ipsum.</span>
     </div>
-    <van-cell title="修改密码" is-link />
+    <van-cell title="修改密码" :to="{ name: 'password' }" is-link />
     <van-button @click="logout" type="danger">注销</van-button>
   </div>
 </template>
