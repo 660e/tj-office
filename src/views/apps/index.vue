@@ -18,7 +18,7 @@
         <van-icon name="notes-o" />
         <span>访客授权</span>
       </div>
-      <div>
+      <div @click="to('invite')">
         <van-icon name="qr" />
         <span>邀请码</span>
       </div>
@@ -28,8 +28,10 @@
 
 <script>
 export default {
-  data() {
-    return {};
+  methods: {
+    to(name) {
+      this.$router.push({ name });
+    }
   }
 };
 </script>

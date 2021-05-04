@@ -23,6 +23,7 @@
 <script>
 import PKG from '../../../package.json';
 import axios from 'axios';
+import { queryByLoginname } from '@/api/system.js';
 
 const params = {
   client_id: 'tdfuivue',
@@ -57,7 +58,17 @@ export default {
         .post(`http://123.124.222.65:8086/oauth/token?${query.join('&')}`)
         .then(response => {
           sessionStorage.setItem('token', response.data.access_token);
-          this.$router.push({ name: 'home' });
+
+          const p0 = queryByLoginname(this.username);
+
+          Promise.all([p0]).then(allResponse => {
+            const user = {
+              id: allResponse[0].id
+            };
+            sessionStorage.setItem('user', JSON.stringify(user));
+            this.$router.push({ name: 'home' });
+            this.loading = false;
+          });
         })
         .catch(error => {
           this.$notify({

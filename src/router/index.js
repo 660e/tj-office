@@ -39,6 +39,14 @@ const routes = [
         component: () => import('@/views/user')
       }
     ]
+  },
+  {
+    path: '/apps/invite',
+    name: 'invite',
+    meta: {
+      title: '邀请码'
+    },
+    component: () => import('@/views/apps/views/invite.vue')
   }
 ];
 
