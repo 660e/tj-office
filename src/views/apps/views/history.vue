@@ -42,15 +42,17 @@ export default {
   overflow-y: auto;
   .item {
     background-color: #fff;
-    border: 1px #ebedf0 solid;
-    border-radius: 2px;
-    margin: 5px 5px 0;
-    padding: 5px 10px 0;
+    margin-top: 5px;
+    padding: 10px;
     li {
       font-size: 14px;
-      padding-bottom: 5px;
+      padding-bottom: 10px;
+      line-height: 1;
       display: flex;
       justify-content: space-between;
+      &:last-child {
+        padding: 0;
+      }
       span {
         color: #999;
       }

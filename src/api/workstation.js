@@ -16,6 +16,23 @@ export function getOrderInfoList(pageNum, isAdmin = false) {
   });
 }
 
+export function getVisitorInfoList(pageNum) {
+  return service.post('/workstation/User/getVisitorInfoList', {
+    pageNum,
+    pageSize: 10,
+    type: '',
+    userId
+  });
+}
+
+export function getVisitorInfo(visitorId) {
+  return service.post('/workstation/User/getVisitorInfo', { visitorId });
+}
+
+export function updateUserState(id, state) {
+  return service.post('/workstation/User/updateUserState', { id, state });
+}
+
 export function getInviteCode() {
   return service.post('/workstation/User/getInviteCode', { userId });
 }

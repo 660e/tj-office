@@ -56,9 +56,25 @@ const routes = [
         path: '/apps/records',
         name: 'records',
         meta: {
-          title: '预约管理'
+          title: '预约记录'
         },
         component: () => import('@/views/apps/views/history.vue')
+      },
+      {
+        path: '/apps/visitor',
+        name: 'visitor',
+        meta: {
+          title: '访客授权'
+        },
+        component: () => import('@/views/apps/views/visitor.vue')
+      },
+      {
+        path: '/apps/visitor/:id',
+        name: 'visitor-details',
+        meta: {
+          title: '访客信息'
+        },
+        component: () => import('@/views/apps/views/visitor-details.vue')
       },
       {
         path: '/apps/invite',

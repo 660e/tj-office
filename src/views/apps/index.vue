@@ -16,9 +16,9 @@
       </div>
       <div @click="to('records', 'admin')">
         <van-icon name="records" />
-        <span>预约管理</span>
+        <span>预约记录</span>
       </div>
-      <div>
+      <div @click="to('visitor')">
         <van-icon name="notes-o" />
         <span>访客授权</span>
       </div>
