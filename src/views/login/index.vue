@@ -63,7 +63,7 @@ export default {
 
           Promise.all([p0]).then(allResponse => {
             const user = {
-              id: allResponse[0].id
+              id: allResponse[0].data.id
             };
             sessionStorage.setItem('user', JSON.stringify(user));
             this.$router.push({ name: 'home' });

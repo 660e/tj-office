@@ -45,6 +45,22 @@ const routes = [
     component: Details,
     children: [
       {
+        path: '/apps/history',
+        name: 'history',
+        meta: {
+          title: '我的预约'
+        },
+        component: () => import('@/views/apps/views/history.vue')
+      },
+      {
+        path: '/apps/records',
+        name: 'records',
+        meta: {
+          title: '预约管理'
+        },
+        component: () => import('@/views/apps/views/history.vue')
+      },
+      {
         path: '/apps/invite',
         name: 'invite',
         meta: {

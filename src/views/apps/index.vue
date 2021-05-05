@@ -3,16 +3,20 @@
     <div class="banner"></div>
     <div class="apps">
       <div>
-        <van-icon name="records" />
+        <van-icon name="completed" />
         <span>预约工位</span>
       </div>
-      <div>
+      <div @click="to('history')">
         <van-icon name="todo-list-o" />
-        <span>预约记录</span>
+        <span>我的预约</span>
       </div>
       <div>
         <van-icon name="desktop-o" />
-        <span>管理工位</span>
+        <span>工位管理</span>
+      </div>
+      <div @click="to('records', 'admin')">
+        <van-icon name="records" />
+        <span>预约管理</span>
       </div>
       <div>
         <van-icon name="notes-o" />
@@ -29,8 +33,8 @@
 <script>
 export default {
   methods: {
-    to(name) {
-      this.$router.push({ name });
+    to(name, role) {
+      this.$router.push({ name, query: { role } });
     }
   }
 };

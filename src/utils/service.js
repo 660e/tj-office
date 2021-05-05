@@ -18,14 +18,9 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     if (response.status === 200) {
-      return response.data.data;
-    } else if (response.httpCode === 200) {
       return response.data;
     } else {
-      Notify({
-        type: 'danger',
-        message: '服务器错误'
-      });
+      Notify({ type: 'danger', message: '服务器错误' });
     }
   },
   error => {
@@ -34,6 +29,9 @@ service.interceptors.response.use(
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('user');
         window.location.href = '/#/login';
+        break;
+      case 404:
+        Notify({ type: 'danger', message: error.response.statusText });
         break;
     }
     return Promise.reject(error.response.statusText);
