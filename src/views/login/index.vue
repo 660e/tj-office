@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     register() {
-      console.log('register');
+      this.$router.push({ name: 'register' });
     },
     login() {
       this.loading = true;

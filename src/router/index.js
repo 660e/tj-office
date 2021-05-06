@@ -45,6 +45,14 @@ const routes = [
     component: Details,
     children: [
       {
+        path: '/register',
+        name: 'register',
+        meta: {
+          title: '访客注册'
+        },
+        component: () => import('@/views/login/views/register.vue')
+      },
+      {
         path: '/apps/history',
         name: 'history',
         meta: {

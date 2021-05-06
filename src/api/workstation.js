@@ -1,6 +1,10 @@
 import { service } from '@/utils/service.js';
 
-const userId = JSON.parse(sessionStorage.getItem('user')).id;
+const userId = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')).id : '';
+
+export function regUserInfo(params) {
+  return service.post('/workstation/User/regUserInfo', params);
+}
 
 export function getOrderInfoList(pageNum, isAdmin = false) {
   return service.post('/workstation/Reservation/getOrderInfoList', {
