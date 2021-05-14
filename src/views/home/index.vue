@@ -7,7 +7,7 @@
     </van-swipe>
     <van-cell title="公告信息"></van-cell>
     <van-list>
-      <van-cell v-for="(e, i) in list" :key="i" :title="e.title" :value="e.value" icon="description"></van-cell>
+      <van-cell v-for="(n, i) in notices" :key="i" :title="n.title" :value="n.value" icon="description"></van-cell>
     </van-list>
   </div>
 </template>
@@ -16,25 +16,25 @@
 export default {
   data() {
     return {
-      list: [
+      notices: [
         {
-          title: 'Lorem, ipsum.',
+          title: '就餐通告',
           value: '2021-05-03'
         },
         {
-          title: 'Perferendis, hic.',
+          title: '停车收费通告',
           value: '2021-05-03'
         },
         {
-          title: 'Id, pariatur.',
+          title: '外来访客管理办法',
           value: '2021-05-03'
         },
         {
-          title: 'Doloremque, sequi.',
+          title: '园区外来车辆管控通告',
           value: '2021-05-03'
         },
         {
-          title: 'Illo, nostrum!',
+          title: '节假日值班人员及电话',
           value: '2021-05-03'
         }
       ]

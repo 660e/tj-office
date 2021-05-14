@@ -1,9 +1,35 @@
 import { service } from '@/utils/service.js';
 
 const userId = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')).id : '';
+const ruleId = '5b66ecf45d634159a08468898b1b3217'; // TODO
+
+function qs(params) {
+  const query = Object.keys(params).map(k => `${k}=${params[k]}`);
+  return query.join('&');
+}
 
 export function regUserInfo(params) {
   return service.post('/workstation/User/regUserInfo', params);
+}
+
+export function getBuildingInfoList() {
+  return service.post('/workstation/Station/getBuildingInfoList', { buildingId: '' });
+}
+
+export function getFloorInfoList(buildingId) {
+  return service.post('/workstation/Station/getFloorInfoList', { buildingId });
+}
+
+export function getAreaInfoList(buildingId, floorId) {
+  return service.post('/workstation/Station/getAreaInfoList', { buildingId, floorId });
+}
+
+export function getStationReservationList(areaId, startDate, endDate) {
+  return service.post('/workstation/Station/getStationReservationList', { areaId, startDate, endDate });
+}
+
+export function getStationInfo(stationId) {
+  return service.post('/workstation/Station/getStationInfo', { stationId });
 }
 
 export function getOrderInfoList(pageNum, isAdmin = false) {
@@ -42,5 +68,5 @@ export function getInviteCode() {
 }
 
 export function updatePwd(oldPwd, newPwd) {
-  return service.post('/workstation/User/updatePwd', { oldPwd, newPwd, userId });
+  return service.post(`/workstation/User/updatePwd?${qs({ oldPwd, newPwd, userId, ruleId })}`);
 }

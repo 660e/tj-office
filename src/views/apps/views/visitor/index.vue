@@ -1,12 +1,12 @@
 <template>
   <van-list v-model:loading="loading" :finished="finished" @load="onLoad" finished-text="没有更多记录了">
     <van-cell
-      v-for="item in list"
-      :key="item.id"
-      :title="item.userName"
-      :value="stateFormatter(item.state)"
-      :label="item.loginName"
-      :to="{ name: 'visitor-details', params: { id: item.id } }"
+      v-for="v in visitors"
+      :key="v.id"
+      :title="v.userName"
+      :value="stateFormatter(v.state)"
+      :label="v.loginName"
+      :to="{ name: 'visitor-details', params: { id: v.id } }"
       is-link
       center
     />
@@ -18,7 +18,7 @@ import { getVisitorInfoList } from '@/api/workstation.js';
 export default {
   data() {
     return {
-      list: [],
+      visitors: [],
       loading: false,
       finished: false,
       current: 0
@@ -27,10 +27,10 @@ export default {
   methods: {
     onLoad() {
       getVisitorInfoList(this.current + 1).then(response => {
-        this.list = this.list.concat(response.data);
+        this.visitors = this.visitors.concat(response.data);
         this.current = response.current;
         this.loading = false;
-        if (this.list.length >= response.total) {
+        if (this.visitors.length >= response.total) {
           this.finished = true;
         }
       });

@@ -2,7 +2,7 @@
   <div>
     <div class="banner"></div>
     <div class="apps">
-      <div>
+      <div @click="to('apply')">
         <van-icon name="completed" />
         <span>预约工位</span>
       </div>
@@ -10,11 +10,11 @@
         <van-icon name="todo-list-o" />
         <span>我的预约</span>
       </div>
-      <div>
+      <div @click="to('control', 'admin')">
         <van-icon name="desktop-o" />
         <span>工位管理</span>
       </div>
-      <div @click="to('records', 'admin')">
+      <div @click="to('record', 'admin')">
         <van-icon name="records" />
         <span>预约记录</span>
       </div>

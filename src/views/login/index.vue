@@ -71,15 +71,9 @@ export default {
           });
         })
         .catch(error => {
-          this.$notify({
-            type: 'danger',
-            message: error.response.data.error_description,
-            onClose: () => {
-              this.username = '';
-              this.password = '';
-              this.loading = false;
-            }
-          });
+          this.$toast.fail(error.response.status);
+          this.password = '';
+          this.loading = false;
         });
     }
   }

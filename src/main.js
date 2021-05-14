@@ -7,8 +7,9 @@ import store from './store';
 const app = createApp(App);
 
 // vant
-import Vant from 'vant';
+import Vant, { Toast } from 'vant';
 import 'vant/lib/index.css';
+Toast.setDefaultOptions({ forbidClick: true });
 app.use(Vant);
 
 // global

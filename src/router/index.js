@@ -53,20 +53,52 @@ const routes = [
         component: () => import('@/views/login/views/register.vue')
       },
       {
+        path: '/apps/apply',
+        name: 'apply',
+        meta: {
+          title: '预约工位'
+        },
+        component: () => import('@/views/apps/views/desk')
+      },
+      {
         path: '/apps/history',
         name: 'history',
         meta: {
           title: '我的预约'
         },
-        component: () => import('@/views/apps/views/history.vue')
+        component: () => import('@/views/apps/views/record.vue')
       },
       {
-        path: '/apps/records',
-        name: 'records',
+        path: '/apps/control',
+        name: 'control',
+        meta: {
+          title: '工位管理'
+        },
+        component: () => import('@/views/apps/views/desk')
+      },
+      {
+        path: '/apps/control/:aid',
+        name: 'control-area',
+        meta: {
+          title: '区域详情'
+        },
+        component: () => import('@/views/apps/views/desk/area.vue')
+      },
+      {
+        path: '/apps/control/:aid/:did',
+        name: 'control-details',
+        meta: {
+          title: '工位详情'
+        },
+        component: () => import('@/views/apps/views/desk/details.vue')
+      },
+      {
+        path: '/apps/record',
+        name: 'record',
         meta: {
           title: '预约记录'
         },
-        component: () => import('@/views/apps/views/history.vue')
+        component: () => import('@/views/apps/views/record.vue')
       },
       {
         path: '/apps/visitor',
@@ -74,7 +106,7 @@ const routes = [
         meta: {
           title: '访客授权'
         },
-        component: () => import('@/views/apps/views/visitor.vue')
+        component: () => import('@/views/apps/views/visitor')
       },
       {
         path: '/apps/visitor/:id',
@@ -82,7 +114,7 @@ const routes = [
         meta: {
           title: '访客信息'
         },
-        component: () => import('@/views/apps/views/visitor-details.vue')
+        component: () => import('@/views/apps/views/visitor/details.vue')
       },
       {
         path: '/apps/invite',

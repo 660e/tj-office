@@ -15,7 +15,7 @@
       label="新密码"
       placeholder="新密码"
       type="password"
-      :rules="[rules.required, rules.password]"
+      :rules="[rules.required]"
       clearable
     ></van-field>
     <van-field
@@ -27,7 +27,7 @@
       :rules="[rules.required]"
       clearable
     ></van-field>
-    <div class="tips">8~16个字符，至少包含1个大写字母、1个小写字母、1个数字</div>
+    <!-- <div class="tips">8~16个字符，至少包含1个大写字母、1个小写字母、1个数字</div> -->
     <van-button type="primary" native-type="submit">提交</van-button>
   </van-form>
 </template>
@@ -57,8 +57,19 @@ export default {
         this.$notify({ type: 'warning', message: '请再次确认新密码' });
       } else {
         updatePwd(o, n).then(response => {
-          // TODO
-          console.log(response);
+          if (response.data.successful === 'true') {
+            this.$toast({
+              type: 'success',
+              message: '修改成功',
+              onClose: () => {
+                sessionStorage.removeItem('token');
+                sessionStorage.removeItem('user');
+                this.$router.push({ name: 'login' });
+              }
+            });
+          } else {
+            this.$toast.fail('修改失败');
+          }
         });
       }
     }

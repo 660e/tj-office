@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Notify } from 'vant';
+import { Toast } from 'vant';
 
 const service = axios.create({
   timeout: 10000
@@ -19,10 +19,12 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      Notify({ type: 'danger', message: '服务器错误' });
+    switch (response.status) {
+      case 200:
+        return response.data;
+      default:
+        Toast.fail(response.status);
+        break;
     }
   },
   error => {
@@ -32,8 +34,8 @@ service.interceptors.response.use(
         sessionStorage.removeItem('user');
         window.location.href = '/#/login';
         break;
-      case 404:
-        Notify({ type: 'danger', message: error.response.statusText });
+      default:
+        Toast.fail(error.response.status);
         break;
     }
     return Promise.reject(error.response.statusText);
