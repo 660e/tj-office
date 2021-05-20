@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     onLoad() {
-      getOrderInfoList(this.current + 1, this.$route.query.role === 'admin').then(response => {
+      getOrderInfoList(this.current + 1, this.$route.name === 'record').then(response => {
         this.records = this.records.concat(response.data);
         this.current = response.current;
         this.loading = false;
@@ -42,7 +42,7 @@ export default {
   overflow-y: auto;
   .r {
     background-color: #fff;
-    margin-top: 5px;
+    border-bottom: 0.5px #ebedf0 solid;
     padding: 10px;
     li {
       font-size: 14px;

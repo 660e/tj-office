@@ -5,10 +5,10 @@
       <van-swipe-item><img src="../../assets/20191115182536775.jpg" /></van-swipe-item>
       <van-swipe-item><img src="../../assets/20191115182553688.jpg" /></van-swipe-item>
     </van-swipe>
-    <van-cell title="公告信息"></van-cell>
-    <van-list>
+    <van-cell-group>
+      <van-cell title="公告信息" />
       <van-cell v-for="(n, i) in notices" :key="i" :title="n.title" :value="n.value" icon="description"></van-cell>
-    </van-list>
+    </van-cell-group>
   </div>
 </template>
 

@@ -70,3 +70,13 @@ export function getInviteCode() {
 export function updatePwd(oldPwd, newPwd) {
   return service.post(`/workstation/User/updatePwd?${qs({ oldPwd, newPwd, userId, ruleId })}`);
 }
+
+export function controlStation(params) {
+  params.userId = userId;
+  return service.post('/workstation/Common/controlStation', params);
+}
+
+export function controlDevices(params) {
+  params.userId = userId;
+  return service.post('/workstation/Common/controlDevices', params);
+}

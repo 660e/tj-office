@@ -53,12 +53,28 @@ const routes = [
         component: () => import('@/views/login/views/register.vue')
       },
       {
-        path: '/apps/apply',
-        name: 'apply',
+        path: '/apps/plan',
+        name: 'plan',
         meta: {
-          title: '预约工位'
+          title: '选择区域'
         },
-        component: () => import('@/views/apps/views/desk')
+        component: () => import('@/views/apps/views/plan')
+      },
+      {
+        path: '/apps/plan/:aid',
+        name: 'area',
+        meta: {
+          title: '选择工位'
+        },
+        component: () => import('@/views/apps/views/plan/area.vue')
+      },
+      {
+        path: '/apps/plan/:aid/:did',
+        name: 'desk',
+        meta: {
+          title: '工位详情'
+        },
+        component: () => import('@/views/apps/views/plan/desk.vue')
       },
       {
         path: '/apps/history',
@@ -67,30 +83,6 @@ const routes = [
           title: '我的预约'
         },
         component: () => import('@/views/apps/views/record.vue')
-      },
-      {
-        path: '/apps/control',
-        name: 'control',
-        meta: {
-          title: '工位管理'
-        },
-        component: () => import('@/views/apps/views/desk')
-      },
-      {
-        path: '/apps/control/:aid',
-        name: 'control-area',
-        meta: {
-          title: '区域详情'
-        },
-        component: () => import('@/views/apps/views/desk/area.vue')
-      },
-      {
-        path: '/apps/control/:aid/:did',
-        name: 'control-details',
-        meta: {
-          title: '工位详情'
-        },
-        component: () => import('@/views/apps/views/desk/details.vue')
       },
       {
         path: '/apps/record',

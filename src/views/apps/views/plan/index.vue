@@ -1,6 +1,9 @@
 <template>
   <div class="areas">
-    <van-field v-model="fieldValue" @click="show = true" label="楼层" placeholder="请选择楼层" is-link readonly></van-field>
+    <div class="van-cell-group__title"></div>
+    <van-cell-group>
+      <van-field v-model="field" @click="show = true" label="楼层" placeholder="请选择楼层" is-link readonly></van-field>
+    </van-cell-group>
     <div class="plan">
       <div>
         <img v-if="planId" :src="require(`../../../../assets/plans/${planId}.png`)" />
@@ -26,7 +29,7 @@ import { getBuildingInfoList, getFloorInfoList, getAreaInfoList } from '@/api/wo
 export default {
   data() {
     return {
-      fieldValue: '',
+      field: '',
       cascaderValue: '',
       show: false,
       options: [],
@@ -53,14 +56,14 @@ export default {
       this.$toast.loading({ duration: 0, message: '加载地图' });
       getAreaInfoList(selectedOptions[0].id, selectedOptions[1].id).then(response => {
         this.planId = `${selectedOptions[0].id}-${selectedOptions[1].id}`;
-        this.fieldValue = selectedOptions.map(e => e.name).join('/');
+        this.field = selectedOptions.map(e => e.name).join('/');
         this.areas = response.data;
         this.show = false;
         this.$toast.clear();
       });
     },
     selectArea(aid) {
-      this.$router.push({ name: 'control-area', params: { aid } });
+      this.$router.push({ name: 'area', params: { aid }, query: { action: this.$route.query.action } });
     },
     areaStyle(appLocation) {
       const [width, height, left, top] = appLocation.split(',');
@@ -76,7 +79,6 @@ export default {
   display: flex;
   flex-direction: column;
   .plan {
-    background-color: #fff;
     flex: 1;
     overflow-x: auto;
     display: flex;
@@ -85,7 +87,7 @@ export default {
       position: relative;
       img {
         display: block;
-        height: 80vh;
+        height: 75vh;
       }
       span {
         background-color: rgba(255, 0, 0, 0.5);

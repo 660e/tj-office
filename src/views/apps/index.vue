@@ -2,7 +2,7 @@
   <div>
     <div class="banner"></div>
     <div class="apps">
-      <div @click="to('apply')">
+      <div @click="to('plan', 'reserve')">
         <van-icon name="completed" />
         <span>预约工位</span>
       </div>
@@ -10,11 +10,11 @@
         <van-icon name="todo-list-o" />
         <span>我的预约</span>
       </div>
-      <div @click="to('control', 'admin')">
+      <div @click="to('plan', 'control')">
         <van-icon name="desktop-o" />
         <span>工位管理</span>
       </div>
-      <div @click="to('record', 'admin')">
+      <div @click="to('record')">
         <van-icon name="records" />
         <span>预约记录</span>
       </div>
@@ -33,8 +33,8 @@
 <script>
 export default {
   methods: {
-    to(name, role) {
-      this.$router.push({ name, query: { role } });
+    to(name, action) {
+      this.$router.push({ name, query: { action } });
     }
   }
 };

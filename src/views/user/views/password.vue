@@ -1,32 +1,35 @@
 <template>
   <van-form @submit="onSubmit">
-    <van-field
-      v-model="oldPassword"
-      name="oldPassword"
-      label="旧密码"
-      placeholder="旧密码"
-      type="password"
-      :rules="[rules.required]"
-      clearable
-    ></van-field>
-    <van-field
-      v-model="newPassword"
-      name="newPassword"
-      label="新密码"
-      placeholder="新密码"
-      type="password"
-      :rules="[rules.required]"
-      clearable
-    ></van-field>
-    <van-field
-      v-model="confirmPassword"
-      name="confirmPassword"
-      label="确认密码"
-      placeholder="确认密码"
-      type="password"
-      :rules="[rules.required]"
-      clearable
-    ></van-field>
+    <div class="van-cell-group__title"></div>
+    <van-cell-group>
+      <van-field
+        v-model="oldPassword"
+        name="oldPassword"
+        label="旧密码"
+        placeholder="旧密码"
+        type="password"
+        :rules="[rules.required]"
+        clearable
+      ></van-field>
+      <van-field
+        v-model="newPassword"
+        name="newPassword"
+        label="新密码"
+        placeholder="新密码"
+        type="password"
+        :rules="[rules.required]"
+        clearable
+      ></van-field>
+      <van-field
+        v-model="confirmPassword"
+        name="confirmPassword"
+        label="确认密码"
+        placeholder="确认密码"
+        type="password"
+        :rules="[rules.required]"
+        clearable
+      ></van-field>
+    </van-cell-group>
     <!-- <div class="tips">8~16个字符，至少包含1个大写字母、1个小写字母、1个数字</div> -->
     <van-button type="primary" native-type="submit">提交</van-button>
   </van-form>

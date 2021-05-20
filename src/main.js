@@ -12,6 +12,10 @@ import 'vant/lib/index.css';
 Toast.setDefaultOptions({ forbidClick: true });
 app.use(Vant);
 
+// filters
+import * as filters from './filters';
+app.config.globalProperties.$filters = filters;
+
 // global
 import './styles/index.less';
 

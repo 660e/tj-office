@@ -2,7 +2,7 @@
   <div class="layout-container">
     <div class="c">
       <h1><img src="../../assets/logo.png" />智慧工位</h1>
-      <van-divider>v{{ version }}</van-divider>
+      <van-divider>-</van-divider>
       <div class="i" :class="{ disabled: loading }">
         <van-icon name="user-o" />
         <input :disabled="loading" v-model="username" type="text" placeholder="用户名" />
@@ -17,6 +17,7 @@
       </div>
       <van-button :loading="loading" @click="login" type="primary" loading-text="正在验证..." round>登录</van-button>
     </div>
+    <div class="v">v{{ version }}</div>
   </div>
 </template>
 
