@@ -2,7 +2,7 @@
   <div>
     <div class="user">
       <img src="../../assets/default.png" />
-      <span>Lorem, ipsum.</span>
+      <span>{{ name }}</span>
     </div>
     <van-cell-group>
       <van-cell title="修改密码" :to="{ name: 'password' }" is-link />
@@ -14,7 +14,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      name: JSON.parse(sessionStorage.getItem('user')).name
+    };
   },
   methods: {
     logout() {

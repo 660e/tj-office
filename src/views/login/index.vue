@@ -60,11 +60,14 @@ export default {
         .then(response => {
           sessionStorage.setItem('token', response.data.access_token);
 
-          const p0 = queryByLoginname(this.username);
+          const p0 = queryByLoginname(this.username); // TODO
 
           Promise.all([p0]).then(allResponse => {
             const user = {
-              id: allResponse[0].data.id
+              id: allResponse[0].data.id,
+              rid: allResponse[0].data.roles[0].id,
+              name: allResponse[0].data.userName,
+              remark: allResponse[0].data.remark
             };
             sessionStorage.setItem('user', JSON.stringify(user));
             this.$router.push({ name: 'home' });

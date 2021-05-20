@@ -1,7 +1,7 @@
 import { service } from '@/utils/service.js';
 
-const userId = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')).id : '';
-const ruleId = '5b66ecf45d634159a08468898b1b3217'; // TODO
+const userId = JSON.parse(sessionStorage.getItem('user')).id;
+const ruleId = JSON.parse(sessionStorage.getItem('user')).rid;
 
 function qs(params) {
   const query = Object.keys(params).map(k => `${k}=${params[k]}`);
