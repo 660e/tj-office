@@ -7,7 +7,7 @@
     <div class="plan">
       <div>
         <img v-if="planId" :src="require(`../../../../assets/plans/${planId}.png`)" />
-        <span v-for="a in areas" :key="a.id" :style="areaStyle(a.appLocation)" @click="selectArea(a.id)">{{ a.name }}</span>
+        <span v-for="a in areas" :key="a.id" :style="areaStyle(a.appLocation)" @click="selectArea(a)">{{ a.name }}</span>
       </div>
     </div>
     <van-popup v-model:show="show" position="bottom">
@@ -62,8 +62,8 @@ export default {
         this.$toast.clear();
       });
     },
-    selectArea(aid) {
-      this.$router.push({ name: 'area', params: { aid }, query: { action: this.$route.query.action } });
+    selectArea(a) {
+      this.$router.push({ name: 'area', params: { aid: a.id, area: JSON.stringify(a) }, query: { action: this.$route.query.action } });
     },
     areaStyle(appLocation) {
       const [width, height, left, top] = appLocation.split(',');

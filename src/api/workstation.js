@@ -1,8 +1,5 @@
 import { service } from '@/utils/service.js';
 
-const userId = JSON.parse(sessionStorage.getItem('user')).id;
-const ruleId = JSON.parse(sessionStorage.getItem('user')).rid;
-
 function qs(params) {
   const query = Object.keys(params).map(k => `${k}=${params[k]}`);
   return query.join('&');
@@ -41,7 +38,7 @@ export function getOrderInfoList(pageNum, isAdmin = false) {
     startOrderTime: null,
     endDate: null,
     endOrderTime: null,
-    userMainId: isAdmin ? null : userId,
+    userMainId: isAdmin ? null : JSON.parse(sessionStorage.getItem('user')).id,
     userSubId: null
   });
 }
@@ -51,7 +48,7 @@ export function getVisitorInfoList(pageNum) {
     pageNum,
     pageSize: 10,
     type: '',
-    userId
+    userId: JSON.parse(sessionStorage.getItem('user')).id
   });
 }
 
@@ -63,20 +60,22 @@ export function updateUserState(id, state) {
   return service.post('/workstation/User/updateUserState', { id, state });
 }
 
-export function getInviteCode() {
+export function addOrderInfo(params) {
+  return service.post('/workstation/Reservation/addOrderInfo', params);
+}
+
+export function getInviteCode(userId) {
   return service.post('/workstation/User/getInviteCode', { userId });
 }
 
-export function updatePwd(oldPwd, newPwd) {
-  return service.post(`/workstation/User/updatePwd?${qs({ oldPwd, newPwd, userId, ruleId })}`);
+export function updatePwd(params) {
+  return service.post(`/workstation/User/updatePwd?${qs(params)}`);
 }
 
 export function controlStation(params) {
-  params.userId = userId;
   return service.post('/workstation/Common/controlStation', params);
 }
 
 export function controlDevices(params) {
-  params.userId = userId;
   return service.post('/workstation/Common/controlDevices', params);
 }

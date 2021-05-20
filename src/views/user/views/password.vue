@@ -59,7 +59,13 @@ export default {
       } else if (n !== c) {
         this.$notify({ type: 'warning', message: '请再次确认新密码' });
       } else {
-        updatePwd(o, n).then(response => {
+        const params = {
+          oldPwd: o,
+          newPwd: n,
+          userId: JSON.parse(sessionStorage.getItem('user')).id,
+          ruleId: JSON.parse(sessionStorage.getItem('user')).rid
+        };
+        updatePwd(params).then(response => {
           if (response.data.successful === 'true') {
             this.$toast({
               type: 'success',

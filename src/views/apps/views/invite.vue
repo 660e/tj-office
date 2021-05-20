@@ -10,7 +10,8 @@ import { getInviteCode } from '@/api/workstation.js';
 import QRCode from 'qrcode';
 export default {
   mounted() {
-    getInviteCode().then(response => QRCode.toCanvas(document.getElementById('code'), response.data));
+    const userId = JSON.parse(sessionStorage.getItem('user')).id;
+    getInviteCode(userId).then(response => QRCode.toCanvas(document.getElementById('code'), response.data));
   }
 };
 </script>

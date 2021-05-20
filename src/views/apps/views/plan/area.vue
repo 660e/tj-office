@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { getStationReservationList } from '@/api/workstation.js';
+import { getStationReservationList, addOrderInfo } from '@/api/workstation.js';
 import dayjs from 'dayjs';
 export default {
   data() {
@@ -69,7 +69,34 @@ export default {
       }
     },
     submit() {
-      console.log(this.desks);
+      const desks = this.desks.filter(d => d._selected);
+      const { buildingId, buildingName, floorId, floorName } = JSON.parse(this.$route.params.area);
+      const params = {
+        areaId: desks[0].areaId,
+        areaName: desks[0].areaName,
+        buildingId,
+        buildingName,
+        floorId,
+        floorName,
+        startTime: dayjs(this.startTime).format('YYYY-MM-DD'),
+        endTime: dayjs(this.endTime).format('YYYY-MM-DD'),
+        userMainId: JSON.parse(sessionStorage.getItem('user')).id,
+        userMainName: JSON.parse(sessionStorage.getItem('user')).name,
+        userSubId: '',
+        userSubName: '',
+        stationName: desks.map(d => d.name).join(','),
+        reservationList: desks.map(d => ({ stationId: d.id, stationName: d.name }))
+      };
+      addOrderInfo(params).then(response => {
+        if (response.data === '预约成功') {
+          this.$toast.success(response.data);
+        } else {
+          this.$notify({ type: 'warning', message: response.data }); // TODO
+        }
+        this.desks.forEach(d => (d._selected = false));
+        this.disabled = true;
+        this.getData();
+      });
     }
   }
 };

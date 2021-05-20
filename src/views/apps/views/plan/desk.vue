@@ -67,7 +67,8 @@ export default {
       const params = {
         command: newValue === 101 ? 'open' : 'close',
         isCheck: 0,
-        stationId: this.info.id
+        stationId: this.info.id,
+        userId: JSON.parse(sessionStorage.getItem('user')).id
       };
       controlStation(params).then(response => {
         if (response.httpCode === 200 && response.data.type === 'SUCCESS') {
@@ -82,7 +83,8 @@ export default {
       this.loading = true;
       const params = {
         deviceId: device.id,
-        stationId: device.stationId
+        stationId: device.stationId,
+        userId: JSON.parse(sessionStorage.getItem('user')).id
       };
       if (device.type === 'nameplate') {
         params.command = device.status === '0' ? 'login' : 'wait';
