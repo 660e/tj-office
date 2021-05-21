@@ -15,7 +15,9 @@
         </li>
       </ul>
     </van-pull-refresh>
-    <van-button v-if="action === 'reserve'" :disabled="disabled" @click="submit" type="primary">预约</van-button>
+    <template v-if="action === 'reserve'">
+      <van-button :disabled="disabled" @click="submit" type="primary">预约（{{ desks.filter(d => d._selected).length }}/{{ limit }}）</van-button>
+    </template>
   </div>
 </template>
 
@@ -30,10 +32,11 @@ export default {
       date: `${dayjs().format('YYYY-MM-DD')}/${dayjs().format('YYYY-MM-DD')}`,
       startTime: new Date(),
       endTime: new Date(),
+      desks: [],
       show: false,
       loading: false,
       disabled: true,
-      desks: []
+      limit: 2
     };
   },
   mounted() {
@@ -43,6 +46,9 @@ export default {
     getData() {
       const startDate = this.action === 'reserve' ? dayjs(this.startTime).format('YYYY-MM-DD') : null;
       const endDate = this.action === 'reserve' ? dayjs(this.endTime).format('YYYY-MM-DD') : null;
+      this.loading = true;
+      this.disabled = true;
+      this.desks.forEach(d => (d._selected = false));
       getStationReservationList(this.aid, startDate, endDate).then(response => {
         this.desks = response.data;
         this.loading = false;
@@ -54,18 +60,20 @@ export default {
     onConfirm(values) {
       [this.startTime, this.endTime] = values;
       this.date = `${dayjs(this.startTime).format('YYYY-MM-DD')}/${dayjs(this.endTime).format('YYYY-MM-DD')}`;
-      this.getData();
       this.show = false;
+      this.getData();
     },
     handle(d) {
-      switch (this.action) {
-        case 'reserve':
-          d._selected = d.isReserved ? false : !d._selected;
-          this.disabled = !this.desks.some(e => e._selected);
-          return;
-        case 'control':
-          this.$router.push({ name: 'desk', params: { aid: this.aid, did: d.id } });
-          return;
+      if (!this.loading) {
+        switch (this.action) {
+          case 'reserve':
+            d._selected = d.isReserved ? false : !d._selected;
+            this.disabled = !(this.desks.filter(e => e._selected).length <= this.limit && this.desks.filter(e => e._selected).length > 0);
+            return;
+          case 'control':
+            this.$router.push({ name: 'desk', params: { aid: this.aid, did: d.id } });
+            return;
+        }
       }
     },
     submit() {
@@ -87,16 +95,30 @@ export default {
         stationName: desks.map(d => d.name).join(','),
         reservationList: desks.map(d => ({ stationId: d.id, stationName: d.name }))
       };
-      addOrderInfo(params).then(response => {
-        if (response.data === '预约成功') {
-          this.$toast.success(response.data);
-        } else {
-          this.$notify({ type: 'warning', message: response.data }); // TODO
-        }
-        this.desks.forEach(d => (d._selected = false));
-        this.disabled = true;
-        this.getData();
-      });
+      this.$dialog
+        .confirm({
+          message: `是否预约${desks.map(d => d.name).join('/')}`,
+          beforeClose: action => {
+            return new Promise(resolve => {
+              if (action === 'confirm') {
+                addOrderInfo(params).then(response => {
+                  if (response.data === '预约成功') {
+                    this.$toast.success(response.data);
+                  } else {
+                    this.$notify({ type: 'warning', message: response.data }); // TODO
+                  }
+                  resolve(true);
+                });
+              } else {
+                resolve(true);
+              }
+            });
+          }
+        })
+        .then(() => {
+          this.getData();
+        })
+        .catch(() => {});
     }
   }
 };
