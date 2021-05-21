@@ -23,7 +23,15 @@ export default {
   },
   methods: {
     onLoad() {
-      getOrderInfoList(this.current + 1, this.$route.name === 'record').then(response => {
+      const params = {
+        pageNum: this.current + 1,
+        pageSize: 10,
+        stationName: this.$route.query.stationName,
+        startDate: this.$route.query.startDate,
+        endDate: this.$route.query.endDate,
+        userMainId: this.$route.name === 'record' ? null : JSON.parse(sessionStorage.getItem('user')).id
+      };
+      getOrderInfoList(params).then(response => {
         this.records = this.records.concat(response.data);
         this.current = response.current;
         this.loading = false;

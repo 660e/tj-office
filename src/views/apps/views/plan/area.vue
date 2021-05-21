@@ -1,16 +1,15 @@
 <template>
   <div class="desks">
-    <template v-if="action === 'reserve'">
-      <div class="van-cell-group__title"></div>
-      <van-cell-group>
-        <van-field v-model="date" @click="show = true" label="来访日期" is-link readonly></van-field>
-      </van-cell-group>
-      <van-calendar v-model:show="show" :default-date="[startTime, endTime]" :round="false" @confirm="onConfirm" type="range" allow-same-day />
-    </template>
+    <div class="van-cell-group__title"></div>
+    <van-cell-group>
+      <van-field v-model="date" @click="show = true" label="日期" is-link readonly></van-field>
+    </van-cell-group>
+    <van-calendar v-model:show="show" :default-date="[startTime, endTime]" :round="false" @confirm="onConfirm" type="range" allow-same-day />
     <van-pull-refresh v-model="loading" @refresh="onRefresh">
       <ul :class="action">
         <li v-for="d in desks" :key="d.id" :class="{ on: d.status === 101, reserved: d.isReserved, selected: d._selected }" @click="handle(d)">
-          <van-icon name="desktop-o" />
+          <van-icon v-if="d.isReserved" name="friends-o" />
+          <van-icon v-else name="desktop-o" />
           <span>{{ d.name }}</span>
         </li>
       </ul>
@@ -44,8 +43,8 @@ export default {
   },
   methods: {
     getData() {
-      const startDate = this.action === 'reserve' ? dayjs(this.startTime).format('YYYY-MM-DD') : null;
-      const endDate = this.action === 'reserve' ? dayjs(this.endTime).format('YYYY-MM-DD') : null;
+      const startDate = dayjs(this.startTime).format('YYYY-MM-DD');
+      const endDate = dayjs(this.endTime).format('YYYY-MM-DD');
       this.loading = true;
       this.disabled = true;
       this.desks.forEach(d => (d._selected = false));
@@ -71,7 +70,18 @@ export default {
             this.disabled = !(this.desks.filter(e => e._selected).length <= this.limit && this.desks.filter(e => e._selected).length > 0);
             return;
           case 'control':
-            this.$router.push({ name: 'desk', params: { aid: this.aid, did: d.id } });
+            this.$router.push({
+              name: 'desk',
+              params: {
+                aid: this.aid,
+                did: d.id
+              },
+              query: {
+                stationName: d.isReserved ? d.name : null,
+                startDate: d.isReserved ? dayjs(this.startTime).format('YYYY-MM-DD') : null,
+                endDate: d.isReserved ? dayjs(this.endTime).format('YYYY-MM-DD') : null
+              }
+            });
             return;
         }
       }

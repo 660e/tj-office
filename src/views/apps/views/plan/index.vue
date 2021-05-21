@@ -63,7 +63,16 @@ export default {
       });
     },
     selectArea(a) {
-      this.$router.push({ name: 'area', params: { aid: a.id, area: JSON.stringify(a) }, query: { action: this.$route.query.action } });
+      this.$router.push({
+        name: 'area',
+        params: {
+          aid: a.id,
+          area: JSON.stringify(a)
+        },
+        query: {
+          action: this.$route.query.action
+        }
+      });
     },
     areaStyle(appLocation) {
       const [width, height, left, top] = appLocation.split(',');
@@ -73,34 +82,4 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-.areas {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  .plan {
-    flex: 1;
-    overflow-x: auto;
-    display: flex;
-    align-items: center;
-    & > div {
-      position: relative;
-      img {
-        display: block;
-        height: 75vh;
-      }
-      span {
-        background-color: rgba(255, 0, 0, 0.5);
-        color: #fff;
-        font-size: 20px;
-        overflow: hidden;
-        position: absolute;
-        z-index: 2;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
-  }
-}
-</style>
+<style src="./index.less" lang="less" scoped></style>

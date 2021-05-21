@@ -1,7 +1,25 @@
 <template>
   <div style="overflow-y: auto">
+    <template v-if="$route.query.stationName">
+      <div class="van-cell-group__title"></div>
+      <van-cell-group>
+        <van-cell
+          title="预约记录"
+          :to="{
+            name: 'record',
+            query: {
+              stationName: $route.query.stationName,
+              startDate: $route.query.startDate,
+              endDate: $route.query.endDate
+            }
+          }"
+          is-link
+        />
+      </van-cell-group>
+    </template>
     <div class="van-cell-group__title"></div>
     <van-cell-group>
+      <van-cell title="工位名称" :value="info.name" />
       <van-cell title="工位编号" :value="info.id" />
       <van-cell title="工位类型" :value="$filters.deskType(info.type)" />
       <van-cell title="所属区域" :value="info.areaName" />

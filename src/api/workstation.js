@@ -29,18 +29,8 @@ export function getStationInfo(stationId) {
   return service.post('/workstation/Station/getStationInfo', { stationId });
 }
 
-export function getOrderInfoList(pageNum, isAdmin = false) {
-  return service.post('/workstation/Reservation/getOrderInfoList', {
-    pageNum,
-    pageSize: 10,
-    stationName: null,
-    startDate: null,
-    startOrderTime: null,
-    endDate: null,
-    endOrderTime: null,
-    userMainId: isAdmin ? null : JSON.parse(sessionStorage.getItem('user')).id,
-    userSubId: null
-  });
+export function getOrderInfoList(params) {
+  return service.post('/workstation/Reservation/getOrderInfoList', params);
 }
 
 export function getVisitorInfoList(pageNum) {
