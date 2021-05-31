@@ -54,8 +54,8 @@ export function addOrderInfo(params) {
   return service.post('/workstation/Reservation/addOrderInfo', params);
 }
 
-export function getInviteCode(userId) {
-  return service.post('/workstation/User/getInviteCode', { userId });
+export function getInviteCode() {
+  return service.post('/workstation/User/getInviteCode', { userId: JSON.parse(sessionStorage.getItem('user')).id });
 }
 
 export function updatePwd(params) {
@@ -68,4 +68,11 @@ export function controlStation(params) {
 
 export function controlDevices(params) {
   return service.post('/workstation/Common/controlDevices', params);
+}
+
+export function processQRCode(QRCode) {
+  return service.post('/workstation/Common/processQRCode', {
+    QRCode,
+    userId: sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')).id : ''
+  });
 }

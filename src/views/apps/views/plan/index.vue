@@ -53,7 +53,7 @@ export default {
       }
     },
     onFinish({ selectedOptions }) {
-      this.$toast.loading({ duration: 0, message: '加载地图' });
+      this.$toast.loading({ duration: 0, message: '加载中...' });
       getAreaInfoList(selectedOptions[0].id, selectedOptions[1].id).then(response => {
         this.planId = `${selectedOptions[0].id}-${selectedOptions[1].id}`;
         this.field = selectedOptions.map(e => e.name).join('/');

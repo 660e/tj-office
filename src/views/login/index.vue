@@ -11,11 +11,11 @@
         <van-icon name="bag-o" />
         <input :disabled="loading" v-model="password" type="password" placeholder="密码" />
       </div>
+      <van-button :loading="loading" @click="login" type="primary" loading-text="正在验证..." round>登录</van-button>
       <div class="r">
         <van-icon name="scan" />
         <span @click="register">访客注册</span>
       </div>
-      <van-button :loading="loading" @click="login" type="primary" loading-text="正在验证..." round>登录</van-button>
     </div>
     <div class="v">v{{ version }}</div>
   </div>
@@ -25,6 +25,7 @@
 import PKG from '../../../package.json';
 import axios from 'axios';
 import { queryByLoginname } from '@/api/system.js';
+import { $GLOBAL } from '@/global.js';
 
 const params = {
   client_id: 'tdfuivue',
@@ -46,7 +47,7 @@ export default {
   },
   methods: {
     register() {
-      this.$router.push({ name: 'register' });
+      this.$router.push({ name: 'scan', query: { redirect: 'register' } });
     },
     login() {
       this.loading = true;
@@ -56,19 +57,27 @@ export default {
       const query = Object.keys(params).map(k => `${k}=${params[k]}`);
 
       axios
-        .post(`http://123.124.222.65:8086/oauth/token?${query.join('&')}`)
+        .post(`${$GLOBAL.url.oauth}?${query.join('&')}`)
         .then(response => {
           sessionStorage.setItem('token', response.data.access_token);
 
-          const p0 = queryByLoginname(this.username); // TODO
-
-          Promise.all([p0]).then(allResponse => {
+          queryByLoginname(this.username).then(userResponse => {
             const user = {
-              id: allResponse[0].data.id,
-              rid: allResponse[0].data.roles[0].id,
-              name: allResponse[0].data.userName,
-              remark: allResponse[0].data.remark
+              id: userResponse.data.id,
+              rid: userResponse.data.roles[0].id,
+              name: userResponse.data.userName
             };
+            switch (userResponse.data.permission) {
+              case 'admin':
+                user.clearance = 3;
+                break;
+              case 'inner':
+                user.clearance = 2;
+                break;
+              default:
+                user.clearance = 1;
+                break;
+            }
             sessionStorage.setItem('user', JSON.stringify(user));
             this.$router.push({ name: 'home' });
             this.loading = false;

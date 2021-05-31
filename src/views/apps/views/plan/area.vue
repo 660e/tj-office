@@ -115,7 +115,7 @@ export default {
                   if (response.data === '预约成功') {
                     this.$toast.success(response.data);
                   } else {
-                    this.$notify({ type: 'warning', message: response.data }); // TODO
+                    this.$notify({ type: 'warning', message: response.data });
                   }
                   resolve(true);
                 });

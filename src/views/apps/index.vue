@@ -2,29 +2,33 @@
   <div>
     <div class="banner"></div>
     <div class="apps">
-      <div @click="to('plan', 'reserve')">
+      <div @click="to('plan', 'reserve')" v-if="clearance < 3">
         <van-icon name="completed" />
         <span>预约工位</span>
       </div>
-      <div @click="to('history')">
+      <div @click="to('history')" v-if="clearance < 3">
         <van-icon name="todo-list-o" />
         <span>我的预约</span>
       </div>
-      <div @click="to('plan', 'control')">
+      <div @click="to('plan', 'control')" v-if="clearance > 2">
         <van-icon name="desktop-o" />
         <span>工位管理</span>
       </div>
-      <div @click="to('record')">
+      <div @click="to('record')" v-if="clearance > 2">
         <van-icon name="records" />
         <span>预约记录</span>
       </div>
-      <div @click="to('visitor')">
+      <div @click="to('visitor')" v-if="clearance > 1">
         <van-icon name="notes-o" />
         <span>访客授权</span>
       </div>
-      <div @click="to('invite')">
+      <div @click="to('invite')" v-if="clearance > 1">
         <van-icon name="qr" />
         <span>邀请码</span>
+      </div>
+      <div @click="to('scan', null, 'desk')" v-if="clearance < 3">
+        <van-icon name="scan" />
+        <span>扫一扫</span>
       </div>
     </div>
   </div>
@@ -32,9 +36,17 @@
 
 <script>
 export default {
+  data() {
+    return {
+      clearance: 0
+    };
+  },
+  mounted() {
+    this.clearance = JSON.parse(sessionStorage.getItem('user')).clearance;
+  },
   methods: {
-    to(name, action) {
-      this.$router.push({ name, query: { action } });
+    to(name, action, redirect) {
+      this.$router.push({ name, query: { action, redirect } });
     }
   }
 };

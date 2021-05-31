@@ -50,8 +50,7 @@ import { regUserInfo } from '@/api/workstation.js';
 export default {
   data() {
     return {
-      inviteUserName: '',
-      inviteCode: '',
+      inviteUserName: this.$route.query.inviteUserName,
       userInfo: {
         userName: '',
         remark: '',
@@ -74,13 +73,19 @@ export default {
     onSubmit() {
       if (this.confirmPassword === this.userInfo.password) {
         const params = {
-          inviteCode: this.inviteCode,
+          inviteCode: this.$route.query.code,
           userInfo: this.userInfo
         };
         params.userInfo.loginName = this.userInfo.phoneNum;
         regUserInfo(params).then(response => {
-          // TODO
-          console.log(response);
+          if (response.httpCode === 200) {
+            this.$toast.success({
+              message: '注册成功',
+              onClose: () => this.$router.push({ name: 'login' })
+            });
+          } else {
+            this.$toast.fail('注册失败');
+          }
         });
       } else {
         this.$notify({ type: 'warning', message: '请再次确认密码' });
@@ -95,8 +100,12 @@ export default {
   padding: 10px 10px 0;
   text-align: center;
 }
-.van-button {
-  width: 70vw;
-  margin: 15vw;
+.van-form {
+  flex: 1;
+  overflow-y: auto;
+  .van-button {
+    width: 70vw;
+    margin: 15vw;
+  }
 }
 </style>

@@ -45,6 +45,14 @@ const routes = [
     component: Details,
     children: [
       {
+        path: '/scan',
+        name: 'scan',
+        meta: {
+          title: '扫一扫'
+        },
+        component: () => import('@/components/scan.vue')
+      },
+      {
         path: '/register',
         name: 'register',
         meta: {

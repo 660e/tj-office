@@ -67,8 +67,7 @@ export default {
         };
         updatePwd(params).then(response => {
           if (response.data.successful === 'true') {
-            this.$toast({
-              type: 'success',
+            this.$toast.success({
               message: '修改成功',
               onClose: () => {
                 sessionStorage.removeItem('token');

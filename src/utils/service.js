@@ -1,14 +1,19 @@
 import axios from 'axios';
 import { Toast } from 'vant';
+import { $GLOBAL } from '@/global.js';
 
+const noAuthorization = ['/workstation/Common/processQRCode', '/workstation/User/regUserInfo'];
 const service = axios.create({
   timeout: 10000
 });
 
 service.interceptors.request.use(
   config => {
-    if (sessionStorage.getItem('token')) {
+    if (!noAuthorization.includes(config.url)) {
       config.headers.Authorization = `Bearer ${sessionStorage.getItem('token')}`;
+    }
+    if (process.env.NODE_ENV === 'production') {
+      config.url = `${$GLOBAL.url.api}${config.url}`;
     }
     return config;
   },
